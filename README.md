@@ -119,7 +119,7 @@ const unzippedFileSizes = parse(files, true);
 
 All credit goes to the original author [Photopea](https://github.com/photopea/UZIP.js).
 
-I ported this to ES6 modules to use in [another library](https://github.com/greggman/unzipit.js).
+I ported this to ES6 modules to use in [another library](https://github.com/greggman/unzipit).
 Originally I thought about putting the various parts in more separate files
 like the inflate in one file, deflate in another, parse, and encode in others
 but tree shaking is supposed to handle this stuff more or less
