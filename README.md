@@ -117,7 +117,7 @@ const unzippedFileSizes = parse(files, true);
 
 # Notes
 
-All credit goes to the original author [Photpea](https://github.com/photopea/UZIP.js).
+All credit goes to the original author [Photopea](https://github.com/photopea/UZIP.js).
 
 I ported this to ES6 modules to use in [another library](https://github.com/greggman/unzipit.js).
 Originally I thought about putting the various parts in more separate files
