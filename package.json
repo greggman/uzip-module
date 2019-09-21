@@ -2,8 +2,8 @@
   "name": "uzip-module",
   "version": "1.0.0",
   "description": "Module version of UZIP.js",
-  "main": "UZIP.js",
-  "module": "UZIP.js",
+  "type": "module",
+  "module": "src/UZIP.js",
   "scripts": {
     "test": "node test/puppeteer.notjs"
   },
