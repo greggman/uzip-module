@@ -48,6 +48,41 @@ describe('UZIP-module', () => {
     assert.deepEqual(unzip, expected);
   });
 
+  it('unzips just names', async () => {
+    const expected = {
+      "stuff/": {
+        "size": 0,
+        "csize": 0
+      },
+      "stuff/dog.txt": {
+        "size": 15,
+        "csize": 15
+      },
+      "stuff/birds/": {
+        "size": 0,
+        "csize": 0
+      },
+      "stuff/birds/bird.txt": {
+        "size": 7,
+        "csize": 7
+      },
+      "stuff/cat.txt": {
+        "size": 8,
+        "csize": 8
+      },
+      "stuff/long.txt": {
+        "size": 1601,
+        "csize": 24
+      }
+    };
+
+    const req = await fetch('./data/stuff.zip');
+    const zip = await req.arrayBuffer();
+    const unzip = parse(zip, true);
+
+    assert.deepEqual(unzip, expected);
+  });
+
   it('zips', async () => {
     const data = {
       'stuff/': utf8Encoder.encode(''),
