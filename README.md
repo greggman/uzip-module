@@ -1,5 +1,5 @@
 
-# UZIP-module
+# uzip-module
 
 zlib inflate, deflate, inflateRaw, deflateRaw, as well
 as simple in memory zip creation.
@@ -18,7 +18,7 @@ import import {
   inflateRaw,
   encode,
   parse,
-} from 'UZIP';
+} from 'uzip-module';
 ```
 
 ## deflate/inflate
