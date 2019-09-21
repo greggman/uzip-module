@@ -7,7 +7,13 @@
   "scripts": {
     "test": "node test/puppeteer.notjs"
   },
-  "keywords": ["zip", "unzip", "inflate", "deflate", "zlib"],
+  "keywords": [
+    "zip",
+    "unzip",
+    "inflate",
+    "deflate",
+    "zlib"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
