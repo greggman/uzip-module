@@ -100,3 +100,7 @@ so I think just moving it to ES6 modules is enough to get any
 unused code stripped. The only other think maybe left to do
 is change the `bin` and `f` imports in `UZIP.js` to import each
 individual identifier instead of all of them.
+
+Also I spent about an hour trying to get ES6 modules to work with mocha in node
+but failed so got sick of wasting time and used puppeteer. Patches welcome
+to remove that dependency.
