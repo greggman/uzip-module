@@ -2,7 +2,7 @@
 # uzip-module
 
 zlib inflate, deflate, inflateRaw, deflateRaw, as well
-as simple in memory zip creation.
+as simple in memory zip creation and parsing.
 
 This is a ES6 module version of [UZIP.js](https://github.com/photopea/UZIP.js)
 
@@ -37,7 +37,7 @@ or
 const compressed = deflate(uint8Array, {level:9});
 ```
 
-### decompress Uint8Array that has header and footer with default algorithm
+### decompress Uint8Array that has header and footer with delate algorithm
 
 ```
 const uncompressedUint8Array = inflate(compressedUint8Array);
@@ -54,7 +54,7 @@ const uncompressedUint8Array = inflate(
 ## deflateRaw, inflateRaw
 
 These take the exact same arguments as `inflate` and `deflate`
-but don't store the header or the footer
+but don't store or expect the header or the footer
 
 ## encode/parse
 
@@ -132,5 +132,5 @@ Also I spent about an hour trying to get ES6 modules to work with mocha in node
 but failed so got sick of wasting time and used puppeteer. Patches welcome
 to remove that dependency.
 
-I didn't make a non-ES6 version. If it's important submit a PR and I'll
+I didn't make a non-ES6 version. If it's important submit a PR (babel) and I'll
 take a look. 
