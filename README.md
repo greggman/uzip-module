@@ -11,7 +11,7 @@ It's faster than [pako](https://github.com/nodeca/pako) in my tests.
 # Usage
 
 ```
-import import {
+import {
   deflate,
   deflateRaw,
   inflate,
