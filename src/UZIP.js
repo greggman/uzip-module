@@ -1,4 +1,12 @@
-import bin from './bin.js';
+import {
+  readUshort,
+  readUint,
+  readUTF8,
+  writeUint,
+  writeUshort,
+  writeUTF8,
+  sizeUTF8,
+}  from './bin.js';
 import F from './f.js';
 
 const crc = {
@@ -21,7 +29,7 @@ const crc = {
 
 export function parse(buf, onlyNames)	// ArrayBuffer
 {
-	var rUs = bin.readUshort, rUi = bin.readUint, o = 0, out = {};
+	var rUs = readUshort, rUi = readUint, o = 0, out = {};
 	var data = new Uint8Array(buf);
 	var eocd = data.length-4;
 	
@@ -62,7 +70,7 @@ export function parse(buf, onlyNames)	// ArrayBuffer
 
 function _readLocal(data, o, out, csize, usize, onlyNames)
 {
-	var rUs = bin.readUshort, rUi = bin.readUint;
+	var rUs = readUshort, rUi = readUint;
 	var sign  = rUi(data, o);  o+=4;
 	var ver   = rUs(data, o);  o+=2;
 	var gpflg = rUs(data, o);  o+=2;
@@ -79,7 +87,7 @@ function _readLocal(data, o, out, csize, usize, onlyNames)
 	var nlen  = rUs(data, o);  o+=2;
 	var elen  = rUs(data, o);  o+=2;
 		
-	var name =  bin.readUTF8(data, o, nlen);  o+=nlen;  //console.log(name);
+	var name =  readUTF8(data, o, nlen);  o+=nlen;  //console.log(name);
 	o += elen;
 			
 	//console.log(sign.toString(16), ver, gpflg, cmpr, crc32.toString(16), "csize, usize", csize, usize, nlen, elen, name, o);
@@ -129,12 +137,12 @@ export function deflateRaw(data, opts) {
 
 
 export function encode(obj) {
-	var tot = 0, wUi = bin.writeUint, wUs = bin.writeUshort;
+	var tot = 0, wUi = writeUint, wUs = writeUshort;
 	var zpd = {};
 	for(var p in obj) {  var cpr = !_noNeed(p), buf = obj[p], _crc = crc.crc(buf,0,buf.length); 
 		zpd[p] = {  cpr:cpr, usize:buf.length, crc:_crc, file: (cpr ? deflateRaw(buf) : buf)  };  }
 	
-	for(var p in zpd) tot += zpd[p].file.length + 30 + 46 + 2*bin.sizeUTF8(p);
+	for(var p in zpd) tot += zpd[p].file.length + 30 + 46 + 2*sizeUTF8(p);
 	tot +=  22;
 	
 	var data = new Uint8Array(tot), o = 0;
@@ -165,7 +173,7 @@ function _noNeed(fn) {  var ext = fn.split(".").pop().toLowerCase();  return "pn
 
 function _writeHeader(data, o, p, obj, t, roff)
 {
-	var wUi = bin.writeUint, wUs = bin.writeUshort;
+	var wUi = writeUint, wUs = writeUshort;
 	var file = obj.file;
 	
 	wUi(data, o, t==0 ? 0x04034b50 : 0x02014b50);  o+=4; // sign
@@ -179,7 +187,7 @@ function _writeHeader(data, o, p, obj, t, roff)
 	wUi(data, o, file.length);  o+=4;	// csize
 	wUi(data, o, obj.usize);  o+=4;	// usize
 		
-	wUs(data, o, bin.sizeUTF8(p));  o+=2;	// nlen
+	wUs(data, o, sizeUTF8(p));  o+=2;	// nlen
 	wUs(data, o, 0);  o+=2;	// elen
 	
 	if(t==1) {
@@ -188,7 +196,7 @@ function _writeHeader(data, o, p, obj, t, roff)
 		o += 6;  // attributes
 		wUi(data, o, roff);  o+=4;	// usize
 	}
-	var nlen = bin.writeUTF8(data, o, p);  o+= nlen;	
+	var nlen = writeUTF8(data, o, p);  o+= nlen;	
 	if(t==0) {  data.set(file, o);  o += file.length;  }
 	return o;
 }

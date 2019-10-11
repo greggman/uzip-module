@@ -38,16 +38,3 @@ export function sizeUTF8(str) {
 	}
 	return i;
 }
-
-export default {
-	readUshort,
-	writeUshort,
-	readUint,
-	writeUint,
-	readASCII,
-	writeASCII,
-	pad,
-	readUTF8,
-	writeUTF8,
-	sizeUTF8,
-};
