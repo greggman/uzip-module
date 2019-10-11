@@ -364,6 +364,7 @@ export function inflate(data, buf) {
 				//if(stp>20) while(off<end) {  buf.copyWithin(off, o0, o0+stp);  off+=stp;  }  else
 				//if(end-dst<=off) buf.copyWithin(off, off-dst, end-dst);  else
 				//if(dst==1) buf.fill(buf[off-1], off, end);  else
+				if(noBuf) buf=_check(buf, off+(1<<17));
 				while(off<end) {  buf[off]=buf[off++-dst];    buf[off]=buf[off++-dst];  buf[off]=buf[off++-dst];  buf[off]=buf[off++-dst];  }   
 				off=end;
 				//while(off!=end) {  buf[off]=buf[off++-dst];  }

@@ -139,10 +139,11 @@ export function deflateRaw(data, opts) {
 }
 
 
-export function encode(obj) {
+export function encode(obj, noCmpr) {
+	if(noCmpr==null) noCmpr=false;
 	var tot = 0, wUi = writeUint, wUs = writeUshort;
 	var zpd = {};
-	for(var p in obj) {  var cpr = !_noNeed(p), buf = obj[p], _crc = crc.crc(buf,0,buf.length); 
+	for(var p in obj) {  var cpr = !_noNeed(p) && !noCmpr, buf = obj[p], _crc = crc.crc(buf,0,buf.length); 
 		zpd[p] = {  cpr:cpr, usize:buf.length, crc:_crc, file: (cpr ? deflateRaw(buf) : buf)  };  }
 	
 	for(var p in zpd) tot += zpd[p].file.length + 30 + 46 + 2*sizeUTF8(p);
