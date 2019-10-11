@@ -7,7 +7,10 @@ import {
   writeUTF8,
   sizeUTF8,
 }  from './bin.js';
-import F from './f.js';
+import {
+  inflate as f_inflate,
+  deflateRaw as f_deflateRaw,
+} from './f.js';
 
 const crc = {
 	table : ( function() {
@@ -109,7 +112,7 @@ function _readLocal(data, o, out, csize, usize, onlyNames)
 	else throw "unknown compression method: "+cmpr;
 }
 
-export function inflateRaw(file, buf) {  return F.inflate(file, buf);  }
+export function inflateRaw(file, buf) {  return f_inflate(file, buf);  }
 export function inflate(file, buf) { 
 	var CMF = file[0], FLG = file[1];
 	var CM = (CMF&15), CINFO = (CMF>>>4);
@@ -120,7 +123,7 @@ export function deflate(data, opts/*, buf, off*/) {
 	if(opts==null) opts={level:6};
 	var off=0, buf=new Uint8Array(50+Math.floor(data.length*1.1));
 	buf[off]=120;  buf[off+1]=156;  off+=2;
-	off = F.deflateRaw(data, buf, off, opts.level);
+	off = f_deflateRaw(data, buf, off, opts.level);
 	var crc = adler(data, 0, data.length);
 	buf[off+0]=((crc>>>24)&255); 
 	buf[off+1]=((crc>>>16)&255); 
@@ -131,7 +134,7 @@ export function deflate(data, opts/*, buf, off*/) {
 export function deflateRaw(data, opts) {
 	if(opts==null) opts={level:6};
 	var buf=new Uint8Array(50+Math.floor(data.length*1.1));
-	var off = F.deflateRaw(data, buf, off, opts.level);
+	var off = f_deflateRaw(data, buf, off, opts.level);
 	return new Uint8Array(buf.buffer, 0, off);
 }
 

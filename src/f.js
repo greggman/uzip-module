@@ -539,16 +539,3 @@ export const U = function(){
 	*/
 })()
 
-export default {
-  deflateRaw,
-  getTrees,
-  getSecond,
-  nonZero,
-  contSize,
-  setDepth,
-  restrictDepth,
-  inflate,
-  codes2map,
-  revCodes,
-  U,
-};
