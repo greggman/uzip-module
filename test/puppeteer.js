@@ -1,12 +1,14 @@
-#!/usr/bin/env node
+import puppeteer from 'puppeteer';
+import * as path from 'path';
+import express from 'express';
+import {fileURLToPath} from 'url';
 
-/* global require, __dirname */
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const puppeteer = require('puppeteer');
-const path = require('path');
-const express = require('express');
 const app = express();
 const port = 3000;
+
+
 
 app.use(express.static(path.dirname(__dirname)));
 const server = app.listen(port, () => {
