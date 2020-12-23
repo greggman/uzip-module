@@ -6,7 +6,7 @@
   "module": "src/UZIP.js",
   "scripts": {
     "build": "rollup -c",
-    "test": "node test/puppeteer.js"
+    "test": "node test/puppeteer.mjs"
   },
   "keywords": [
     "zip",
