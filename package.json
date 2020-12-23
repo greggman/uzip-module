@@ -1,6 +1,6 @@
 {
   "name": "uzip-module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Module version of UZIP.js",
   "main": "dist/UZIP.js",
   "module": "src/UZIP.js",
